@@ -13,8 +13,8 @@
 - Buat database baru dengan nama web_gallery.
 - Isi URL database ke dalam file .env dengan mengubah nilai DB_DATABASE=web_gallery.
 - Setelah itu, tambahkan kode berikut setelah kode VITE_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}":
-SESSION_DOMAIN=localhost
-SANCTUM_STATEFUL_DOMAINS=localhost
+`SESSION_DOMAIN=localhost`
+`SANCTUM_STATEFUL_DOMAINS=localhost`
 - Eksekusi perintah:
 ### `php artisan key:generate`
 ### `php artisan migrate`

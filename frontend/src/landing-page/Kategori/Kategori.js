@@ -51,6 +51,10 @@ const Kategori = () => {
                 <Spinner animation="border" role="status">
                 </Spinner>
               </div>
+            ) : displayedCategories.length === 0 ? (
+              <div className="text-center">
+                <p>Tidak ada data.</p>
+              </div>
             ) : (
               <Row>
                 {displayedCategories.map((category) => (

@@ -91,7 +91,7 @@ const Gallery = ({ searchTerm }) => {
             <Spinner animation="border" role="status">
             </Spinner>
           </div>
-        ): displayedImages.length === 0 ? (
+        ) : displayedImages.length === 0 ? (
           <div className="text-center">
             <p>Tidak ada data.</p>
           </div>

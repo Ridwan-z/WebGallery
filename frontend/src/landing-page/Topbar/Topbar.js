@@ -31,7 +31,7 @@ const Topbar = () => {
     <div>
       <Navbar expand="lg" className="bg-dark shadow-sm">
         <Container>
-          <Nav.Link href="javascript:0;" className='text-white fw-bold fs-4'>Web Gallery Foto</Nav.Link>
+          <Nav.Link href="javascript:0;" className='text-white fw-bold fs-4'>Web Gallery</Nav.Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto text-center d-flex justify-content-center align-items-center">

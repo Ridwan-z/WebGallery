@@ -1,0 +1,32 @@
+/* Add this CSS to your styles or create a new CSS file */
+
+.comment-box {
+    border: 1px solid #ddd; /* Border color */
+    border-radius: 10px; /* Border radius */
+    margin-bottom: 17px; /* Margin between comments */
+    position: relative; /* Position relative for absolute positioning */
+    padding-left: 20px;
+  }
+  
+  .comment-username {
+    position: absolute; /* Position absolute to place it above the comment text */
+    top: -13px; /* Adjust the distance from the top border */
+    left: 10px; /* Adjust the distance from the left border */
+    background-color: white; /* Optional background color for better visibility */
+    padding: 0 5px; /* Optional padding for better styling */
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .comment-text {
+    margin-right: 20px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+  
+.comment-card {
+  overflow-y: auto; /* Membuat card bisa di-scroll secara vertikal */
+  max-height: 450px; /* Atur tinggi maksimum card */
+  border: 1px solid #ddd; /* Tambahkan border sesuai kebutuhan */
+  border-radius: 10px; /* Tambahkan border radius sesuai kebutuhan */
+}

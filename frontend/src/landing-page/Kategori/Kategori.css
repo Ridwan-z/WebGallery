@@ -1,0 +1,61 @@
+.category-circle {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    cursor: pointer;
+  }
+  
+  .category-circle p {
+    color: #fff; /* Atur warna teks */
+    font-size: 16px; /* Atur ukuran font */
+  }
+
+  .category-card {
+    cursor: pointer;
+    border: 1px solid #ddd; /* Garis tepi untuk memberikan efek kartu */
+    border-radius: 8px; /* Membuat sudut kartu melengkung */
+    overflow: hidden; /* Menyembunyikan konten yang melebihi kartu */
+    transition: transform 0.2s; /* Efek transisi saat hover */
+    margin-bottom: 10px;
+  }
+  
+  .category-card:hover {
+    transform: scale(1.05); /* Efek perbesaran saat hover */
+  }
+
+  .show-more {
+    cursor: pointer;
+    text-decoration: underline;
+    color: #7c7171; /* Warna teks sesuai keinginan */
+  }
+  
+  .show-more:hover {
+    text-decoration: underline;
+  }
+  
+  .category-lines-container {
+padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .category-lines {
+    width: 37px;
+    height: 6px;
+    background-color: #fff;
+    margin-bottom: 10px;
+  }
+
+  
+
+
+
+  
+

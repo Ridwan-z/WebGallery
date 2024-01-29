@@ -1,0 +1,13 @@
+.image-preview-container {
+    position: relative;
+    display: inline-block;
+}
+
+.cancel-button {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border: none;
+    padding: 5px;
+    cursor: pointer;
+}

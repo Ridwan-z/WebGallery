@@ -5,6 +5,7 @@ import '../admin/css/sb-admin-2.min.css';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { Spinner } from 'react-bootstrap';
+import { API_URL } from '../config/configs';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -26,7 +27,7 @@ const Login = () => {
       try {
           setLoading(true);
 
-          const response = await axios.post('http://127.0.0.1:8000/api/login', {
+          const response = await axios.post(API_URL+'/login', {
               username,
               password,
           });

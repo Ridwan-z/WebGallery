@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import axios from 'axios';
 import './gambar.css';
 import { useAuth } from '../../auth/AuthContext';
+import { API_URL } from '../../config/configs';
 
 const GambarTambah = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -65,7 +66,7 @@ const GambarTambah = () => {
             formDataObj.append('gambar', selectedImage);
             formDataObj.append('deskripsi', formData.deskripsi);
 
-            const response = await axios.post('http://127.0.0.1:8000/api/gambar', formDataObj, {
+            const response = await axios.post(API_URL + '/gambar', formDataObj, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${authToken}`,
@@ -103,7 +104,7 @@ const GambarTambah = () => {
     useEffect(() => {
         const fetchKategori = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/kategori');
+                const response = await axios.get(API_URL + '/kategori');
                 setKategoriOptions(response.data); // Sesuaikan dengan struktur respons yang sesuai
             } catch (error) {
                 console.error('Error fetching kategori:', error.message);

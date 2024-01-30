@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './Gallery.css';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
+import { API_URL } from '../../config/configs';
 
 const Gallery = ({ searchTerm }) => {
   const [images, setImages] = useState([]);
@@ -17,11 +18,11 @@ const Gallery = ({ searchTerm }) => {
 
   const fetchData = async () => {
     try {
-      const responseImages = await fetch(`http://127.0.0.1:8000/api/gambar?nama_gambar=${searchTerm}`);
+      const responseImages = await fetch(`${API_URL}/gambar?nama_gambar=${searchTerm}`);
       const dataImages = await responseImages.json();
 
       // Fetch likes for the user
-      const responseLikes = await fetch(`http://127.0.0.1:8000/api/like/${Id}`); // Assuming user ID is 1
+      const responseLikes = await fetch(`${API_URL}/like/${Id}`); // Assuming user ID is 1
       const dataLikes = await responseLikes.json();
       // Create a map of liked image IDs
 
@@ -43,7 +44,7 @@ const Gallery = ({ searchTerm }) => {
       const id_gambar = String(imageId);
       const id_user = String(Id);
 
-      const response = await fetch(`http://127.0.0.1:8000/api/like`, {
+      const response = await fetch(`${API_URL}/like`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -66,7 +67,7 @@ const Gallery = ({ searchTerm }) => {
       
       const id_like = String(imageId);
 
-      const response = await fetch(`http://127.0.0.1:8000/api/like-delete/${id_like}`, {
+      const response = await fetch(`${API_URL}/like-delete/${id_like}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
@@ -161,7 +162,7 @@ const Gallery = ({ searchTerm }) => {
         )}
       </Card.Body>
       
-      {displayedImages.length > 8 && (
+      {images.length > 8 && (
       <Row className="mt-3">
         <Col xs={12} className="text-end">
           <p className="show-more" onClick={handleClick}>

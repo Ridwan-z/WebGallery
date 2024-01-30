@@ -27,12 +27,12 @@ const Sidebar = ({ isToggled, onToggleSidebar }) => {
 
             <hr className="sidebar-divider" />
 
-            <li className="nav-item">
+            {/* <li className="nav-item">
                 <Link to="kategori" className={`nav-link ${sidebarToggleClass}`}>
                     <i className="bi bi-clipboard"></i>
                     <span>Kategori</span>
                 </Link>
-            </li>
+            </li> */}
 
             <li className="nav-item">
                 <Link to="gambar" className={`nav-link ${sidebarToggleClass}`}>

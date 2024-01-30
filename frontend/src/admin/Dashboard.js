@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useAuth } from '../auth/AuthContext';
+import { API_URL } from '../config/configs';
 
 const Dashboard = () => {
     const [kategori, setKategori] = useState([]);
@@ -14,7 +15,7 @@ const Dashboard = () => {
 
     const fetchKategori = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/kategori');
+            const response = await axios.get(API_URL + '/kategori');
             setKategori(response.data.length); // Sesuaikan dengan struktur respons yang sesuai
         } catch (error) {
             console.error('Error fetching kategori:', error.message);
@@ -23,7 +24,7 @@ const Dashboard = () => {
 
     const fetchGambar = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/gambar?id_user=' + Id);
+            const response = await axios.get(API_URL + '/gambar?id_user=' + Id);
             setGambar(response.data.length); // Sesuaikan dengan struktur respons yang sesuai
         } catch (error) {
             console.error('Error fetching gambar:', error.message);

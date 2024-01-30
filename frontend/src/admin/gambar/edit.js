@@ -3,6 +3,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useAuth } from '../../auth/AuthContext';
+import { API_URL } from '../../config/configs';
 
 const GambarEdit = () => {
     const { id } = useParams();
@@ -24,7 +25,7 @@ const GambarEdit = () => {
     useEffect(() => {
         const fetchKategori = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/kategori`,{
+                const response = await axios.get(`${API_URL}/kategori`,{
                     headers:{
                         'Authorization' :`Bearer ${authToken}`
                     },
@@ -37,7 +38,7 @@ const GambarEdit = () => {
 
         const fetchGambarDetail = async () => {
             try {
-                const response = await axios.get(`http://127.0.0.1:8000/api/gambar/${id}`,{
+                const response = await axios.get(`${API_URL}/gambar/${id}`,{
                     headers:{
                         'Authorization' :`Bearer ${authToken}`
                     },
@@ -93,7 +94,7 @@ const GambarEdit = () => {
     
             formDataObj.append('deskripsi', formData.deskripsi);
     
-            const response = await axios.post(`http://127.0.0.1:8000/api/gambar-update/${id}`, formDataObj, {
+            const response = await axios.post(`${API_URL}/gambar-update/${id}`, formDataObj, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'Authorization': `Bearer ${authToken}`,

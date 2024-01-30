@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
+import { API_URL } from '../../config/configs';
 
 const Gambar = () => {
     const [images, setImages] = useState([]);
@@ -24,7 +25,7 @@ const Gambar = () => {
               },
             });
 
-          const response = await fetch('http://127.0.0.1:8000/api/gambar?id_user=' + Id);
+          const response = await fetch(API_URL + '/gambar?id_user=' + Id);
           const data = await response.json();
           Swal.close();
 
@@ -50,7 +51,7 @@ const Gambar = () => {
 
         if (result.isConfirmed) {
             try {
-                const deleteUrl = `http://127.0.0.1:8000/api/gambar-delete/${imageId}`;
+                const deleteUrl = `${API_URL}/gambar-delete/${imageId}`;
     
                 await fetch(deleteUrl, {
                     method: 'DELETE',

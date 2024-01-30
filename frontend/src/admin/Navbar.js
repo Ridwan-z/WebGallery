@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios'
 import { useAuth } from '../auth/AuthContext';
+import { API_URL } from '../config/configs';
 
 const Navbar = ({ onToggleSidebar }) => {
     const navigate = useNavigate();
@@ -9,7 +10,7 @@ const Navbar = ({ onToggleSidebar }) => {
 
      const handleLogout = async () => {
         try {
-        await axios.post('http://127.0.0.1:8000/api/logout', {}, {
+        await axios.post(API_URL + '/logout', {}, {
             headers: {
             Authorization: `Bearer ${authToken}`,
             },

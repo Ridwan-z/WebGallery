@@ -4,6 +4,7 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useAuth } from '../../auth/AuthContext';
+import { API_URL } from '../../config/configs';
 
 const KategoriEdit = () => {
   const { id } = useParams();
@@ -18,7 +19,7 @@ const KategoriEdit = () => {
   useEffect(() => {
     const fetchKategori = async () => {
       try {
-        const response = await axios.get(`http://127.0.0.1:8000/api/kategori/${id}`, {
+        const response = await axios.get(`${API_URL}/kategori/${id}`, {
           headers: {
             Authorization: `Bearer ${authToken}`,
           },
@@ -49,7 +50,7 @@ const KategoriEdit = () => {
     });
 
     try {
-      const response = await axios.post(`http://127.0.0.1:8000/api/kategori-update/${id}`, formData,
+      const response = await axios.post(`${API_URL}/kategori-update/${id}`, formData,
         {   
         headers: {
             'Content-Type': 'multipart/form-data',

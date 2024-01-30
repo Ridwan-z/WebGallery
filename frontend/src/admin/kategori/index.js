@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useAuth } from '../../auth/AuthContext';
+import { API_URL } from '../../config/configs';
 
 const Kategori = () => {
     const [categories, setCategories] = useState([]);
@@ -24,7 +25,7 @@ const Kategori = () => {
               },
             });
 
-          const response = await fetch('http://127.0.0.1:8000/api/kategori');
+          const response = await fetch(API_URL + '/kategori');
           const data = await response.json();
           Swal.close();
 
@@ -50,7 +51,7 @@ const Kategori = () => {
 
         if (result.isConfirmed) {
             try {
-                const deleteUrl = `http://127.0.0.1:8000/api/kategori-delete/${categoryId}`;
+                const deleteUrl = `${API_URL}/kategori-delete/${categoryId}`;
     
                 await fetch(deleteUrl, {
                     method: 'DELETE',

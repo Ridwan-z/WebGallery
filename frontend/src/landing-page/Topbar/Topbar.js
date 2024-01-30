@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from '../../config/configs';
 
 const Topbar = () => {
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ const Topbar = () => {
 
   const handleLogout = async () => {
       try {
-      await axios.post('http://127.0.0.1:8000/api/logout', {}, {
+      await axios.post(API_URL+'/logout', {}, {
           headers: {
           Authorization: `Bearer ${authToken}`,
           },

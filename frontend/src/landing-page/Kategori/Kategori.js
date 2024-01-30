@@ -3,6 +3,7 @@ import { Card, Col, Container, Row, Spinner } from 'react-bootstrap';
 import './Kategori.css';
 import Gallery from '../Gallery/Gallery';
 import Search from '../Search/Search';
+import { API_URL } from '../../config/configs';
 
 const Kategori = () => {
   const [categories, setCategories] = useState([]);
@@ -13,7 +14,7 @@ const Kategori = () => {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch('http://127.0.0.1:8000/api/kategori');
+        const response = await fetch(API_URL + '/kategori');
         const data = await response.json();
         setCategories(data);
         setLoading(false); // Setelah data diambil, set loading ke false
@@ -35,7 +36,6 @@ const Kategori = () => {
   };
 
   const displayedCategories = showMore ? categories : categories.slice(0, 8);
-
   return (
     <div>
     <div> 
@@ -81,7 +81,8 @@ const Kategori = () => {
           </Card.Body>
         </Card>
 
-        {displayedCategories.length > 8 && (
+        {categories.length > 8 && (
+        
           <Row className="mt-3">
             <Col xs={12} className="text-end">
               <p className="show-more" onClick={handleClick}>
@@ -89,7 +90,7 @@ const Kategori = () => {
               </p>
             </Col>
           </Row>
-          )}
+          )} 
 
         <div className="my-4">
           <Gallery searchTerm={searchTerm} />

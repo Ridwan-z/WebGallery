@@ -4,6 +4,7 @@ import '../admin/css/sb-admin-2.css';
 import '../admin/css/sb-admin-2.min.css';
 import { useNavigate, Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
+import { API_URL } from '../config/configs';
 
 const Register = () => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -66,7 +67,7 @@ const Register = () => {
             formDataObj.append('alamat', formData.alamat);
             formDataObj.append('foto_user', selectedImage);
 
-            const response = await axios.post('http://127.0.0.1:8000/api/register', formDataObj, {
+            const response = await axios.post(API_URL+'/register', formDataObj, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

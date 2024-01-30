@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import axios from 'axios';
 import { useAuth } from '../../auth/AuthContext';
+import { API_URL } from '../../config/configs';
 
 const KategoriTambah = () => {    
     const [loading, setLoading] = useState(false);
@@ -28,7 +29,7 @@ const KategoriTambah = () => {
           });
 
         try {
-            const response = await axios.post('http://127.0.0.1:8000/api/kategori', formData,
+            const response = await axios.post(API_URL + '/kategori', formData,
             {   
                 headers: {
                     'Content-Type': 'multipart/form-data',

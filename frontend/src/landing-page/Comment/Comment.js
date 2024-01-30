@@ -6,6 +6,7 @@ import './Comment.css'
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import { useAuth } from '../../auth/AuthContext';
 import Swal from 'sweetalert2';
+import { API_URL } from '../../config/configs';
 
 const Comment = () => {
   const { id } = useParams();
@@ -44,7 +45,7 @@ const Comment = () => {
         return;  // Exit the function
       }
 
-        const response = await axios.post('http://127.0.0.1:8000/api/comment', formData,
+        const response = await axios.post(API_URL + '/comment', formData,
         {   
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -67,10 +68,10 @@ const Comment = () => {
 
   const fetchData = async () => {
     try {
-      const responseImages = await axios.get(`http://127.0.0.1:8000/api/gambar/${id}`);
+      const responseImages = await axios.get(`${API_URL}/gambar/${id}`);
       const dataImages = responseImages.data;
 
-      const responseComments = await axios.get(`http://127.0.0.1:8000/api/comment/${id}`);
+      const responseComments = await axios.get(`${API_URL}/comment/${id}`);
       const dataComments = responseComments.data;
       
       setComment(dataComments);

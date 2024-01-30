@@ -48,9 +48,16 @@ const Kategori = () => {
           <Card.Body>
             {loading ? (
               <div className="text-center">
-                <Spinner animation="border" role="status">
-                </Spinner>
-              </div>
+              <Row>
+               {[1, 2, 3, 4].map((placeholderId) => (
+                 <Col key={placeholderId} xs={12} md={4} lg={3}>
+                    <div className="category-circle mb-3" style={{ backgroundColor: '#E0E0E0' }}>
+                      
+                    </div>
+                   </Col>
+               ))}
+             </Row>
+           </div>
             ) : displayedCategories.length === 0 ? (
               <div className="text-center">
                 <p>Tidak ada data.</p>

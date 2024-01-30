@@ -90,7 +90,49 @@ const Comment = () => {
       <Card.Body className='mb-5'>
         {loading ? (
           <div className="text-center">
-            <Spinner animation="border" role="status"></Spinner>
+            <Row className="d-flex">
+            <Col xs={12} md={4} className="mb-3">
+              {/* Left side (image and name) */}
+              <Card>
+                <Card.Body>
+                <div className="loading-placeholder mb-3" style={{ backgroundColor: '#E0E0E0', height: '200px', borderRadius: '8px' }}>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col xs={12} md={8}>
+              <Card className='h-75 comment-card'>
+                <Card.Body>
+                  <div className="comment-container">
+                  {[1, 2, 3, 4].map((placeholderId) => (
+                  <div className="comment-box" style={{ backgroundColor: "#E0E0E0" }} key={placeholderId}>
+                    <div className='comment-text'></div>
+                    <div className='comment-username'></div>
+                  </div>
+                  ))}
+                  </div>
+                </Card.Body>
+              </Card>
+              <Row className='justify-content-center'>
+                <Col xs={12} md={11}>
+              <div className="mt-3">
+                  <input
+                    type="text"
+                    name='isi_comment'
+                    className='form-control'
+                    placeholder="Tambahkan komentar..."
+                    >
+                  </input>
+              </div>
+              </Col>
+              <Col xs={12} md={1}>
+              <a role='button' className='btn btn-secondary mt-3' >
+            <i className="bi bi-send"></i>
+              </a>
+              </Col>
+              </Row>
+            </Col>
+          </Row>
           </div>
         ) : (
           <Row className="d-flex">

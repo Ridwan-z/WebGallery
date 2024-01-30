@@ -97,8 +97,10 @@ const Profile = () => {
       <Row className='mt-3 mb-3'>
       {loading ? (
           <div className="text-center">
-            <Spinner animation="border" role="status">
-            </Spinner>
+            <Col xs={2} md={1} className='ms-4'>
+            <div style={{ backgroundColor: '#E0E0E0', height: '85px', width: '85px', borderRadius: '50%' }}></div>
+           </Col>
+       
           </div>
         ) : (
             <>
@@ -115,8 +117,14 @@ const Profile = () => {
       <Card.Body className='border-top'>
         {loading ? (
           <div className="text-center">
-            <Spinner animation="border" role="status">
-            </Spinner>
+            <Row>
+              {[1, 2, 3, 4].map((placeholderId) => (
+                <Col key={placeholderId} xs={12} md={4} lg={3}>
+                  <div className="loading-placeholder mb-3" style={{ backgroundColor: '#E0E0E0', height: '250px', borderRadius: '8px' }}>
+                  </div>
+                  </Col>
+              ))}
+            </Row>
           </div>
         ) : (
           <Row>

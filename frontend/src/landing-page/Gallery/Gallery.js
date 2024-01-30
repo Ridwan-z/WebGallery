@@ -88,8 +88,14 @@ const Gallery = ({ searchTerm }) => {
       <Card.Body>
         {loading ? (
           <div className="text-center">
-            <Spinner animation="border" role="status">
-            </Spinner>
+             <Row>
+              {[1, 2, 3, 4].map((placeholderId) => (
+                <Col key={placeholderId} xs={12} md={4} lg={3}>
+                  <div className="loading-placeholder mb-3" style={{ backgroundColor: '#E0E0E0', height: '250px', borderRadius: '8px' }}>
+                  </div>
+                  </Col>
+              ))}
+            </Row>
           </div>
         ) : displayedImages.length === 0 ? (
           <div className="text-center">

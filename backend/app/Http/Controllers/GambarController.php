@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
 use App\Models\Gambar;
+use App\Models\Like;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
@@ -13,6 +15,7 @@ class GambarController extends Controller
     {
         $id_user = $request->query('id_user');
         $nama_gambar = $request->query('nama_gambar');
+        $kategori_gambar = $request->query('kategori_gambar');
 
         $query = Gambar::leftJoin('tbl_kategori', 'tbl_gambar.id_kategori', '=', 'tbl_kategori.id_kategori')
             ->leftJoin('users', 'tbl_gambar.id_user', '=', 'users.id');
@@ -23,6 +26,10 @@ class GambarController extends Controller
 
         if ($nama_gambar) {
             $query->where('tbl_gambar.nama_gambar', $nama_gambar);
+        }
+
+        if ($kategori_gambar){
+            $query->where('tbl_gambar.id_kategori', $kategori_gambar);
         }
 
         $gambar = $query->latest()
@@ -39,7 +46,7 @@ class GambarController extends Controller
             'id_user' => 'required|string|max:255',
             'gambar' => 'required|image|mimes:jpeg,png,jpg|max:5120',
             'nama_gambar' => 'required|string|max:255',
-            'deskripsi' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
         ];
 
         $messages = [
@@ -173,6 +180,8 @@ class GambarController extends Controller
         }
 
         Gambar::where('id_gambar', $id)->delete();
+        Comment::where('id_gambar', $id)->delete();
+        Like::where('id_gambar', $id)->delete();
 
         return response()->json([
             'message' => "Gambar successfully deleted."

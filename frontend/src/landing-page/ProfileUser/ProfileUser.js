@@ -1,64 +1,41 @@
-import { Card, Col, Row, Spinner } from 'react-bootstrap';
+import { Card, Col, Row, Spinner, Container } from 'react-bootstrap';
 import React, { useState, useEffect } from 'react';
-import './Gallery.css';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useAuth } from '../../auth/AuthContext';
+import axios from 'axios';
 import { API_URL } from '../../config/configs';
 
-const Gallery = ({ searchTerm, kategoriId }) => {
+const ProfileUser = () => {
   const [images, setImages] = useState([]);
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showMore, setShowMore] = useState(false);
   const [likedImageIds, setLikedImageIds] = useState([])
   const { Id, authToken } = useAuth();
-  const [expandedText, setExpandedText] = useState({});
 
   useEffect(() => {
     fetchData();
-  }, [searchTerm, kategoriId]);
-
-  const calculateTimeAgo = (dateString) => {
-    const createdDate = new Date(dateString);
-    const currentDate = new Date();
-    const timeDifference = currentDate - createdDate;
-    const daysDifference = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
-  
-    if (daysDifference === 0) {
-      const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
-      if (hoursDifference === 0) {
-        const minutesDifference = Math.floor(timeDifference / (1000 * 60));
-        return `${minutesDifference} menit yang lalu`;
-      } else {
-        return `${hoursDifference} jam yang lalu`;
-      }
-    } else {
-      return `${daysDifference} hari yang lalu`;
-    }
-  };
-  
+  }, []);
 
   const fetchData = async () => {
     try {
-      setLoading(true);
-
-      let apiUrl = `${API_URL}/gambar?nama_gambar=${searchTerm}`;
-      if (kategoriId) {
-        apiUrl += `&&kategori_gambar=${kategoriId}`;
-      }
-
-      const responseImages = await fetch(apiUrl);
+      // Fetch images
+      const responseImages = await fetch(API_URL + '/gambar?id_user=' + Id);
       const dataImages = await responseImages.json();
+
+      const responseUsers = await axios.get(`${API_URL}/user/${Id}`);
+      const dataUsers = responseUsers.data;
 
       // Fetch likes for the user
       const responseLikes = await fetch(`${API_URL}/like/${Id}`); // Assuming user ID is 1
       const dataLikes = await responseLikes.json();
       // Create a map of liked image IDs
-
+      setUsers(dataUsers);
       setImages(dataImages);
       setLikedImageIds(dataLikes.map((like) => Number(like.id_gambar)));
+      setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
-    } finally {
       setLoading(false);
     }
   };
@@ -108,22 +85,39 @@ const Gallery = ({ searchTerm, kategoriId }) => {
       console.error('Error canceling like:', error);
     }
   };
-
-  const toggleText = (imageId) => {
-    setExpandedText((prevExpandedText) => ({
-      ...prevExpandedText,
-      [imageId]: !prevExpandedText[imageId],
-    }));
-  };
+  // Function to check if the user has liked a specific image
 
   const displayedImages = showMore ? images : images.slice(0, 8);
+
   return (
-    <div className='mt-4'>
-      <h1 className='fw-bold fs-4'>Gallery</h1>
-      <Card.Body>
+    <Container className='mt-4'>
+      <Link to="/home" className='mb-3'>
+        <i className="bi bi-arrow-left text-dark fs-3"></i>
+      </Link>
+      <Row className='mt-3 mb-3'>
+      {loading ? (
+          <div className="text-center">
+            <Col xs={2} md={1} className='ms-4'>
+            <div style={{ backgroundColor: '#E0E0E0', height: '85px', width: '85px', borderRadius: '50%' }}></div>
+           </Col>
+       
+          </div>
+        ) : (
+            <>
+        <Col xs={2} md={1} className='ms-5'>
+            <img src={`http://localhost:8000/files/` + users.foto_user} alt='foto_profil' className='img-profile rounded-circle' width={80} height={80}></img>
+        </Col>
+        <Col xs={8} className='d-flex flex-column justify-content-center text-dark ps-3'>
+            <div className='fw-bold'>{users.name}</div>
+            <small>{users.username}</small>
+        </Col>
+        </>
+        )}
+        </Row>
+      <Card.Body className='border-top'>
         {loading ? (
           <div className="text-center">
-             <Row>
+            <Row>
               {[1, 2, 3, 4].map((placeholderId) => (
                 <Col key={placeholderId} xs={12} md={4} lg={3}>
                   <div className="loading-placeholder mb-3" style={{ backgroundColor: '#E0E0E0', height: '250px', borderRadius: '8px' }}>
@@ -134,28 +128,22 @@ const Gallery = ({ searchTerm, kategoriId }) => {
           </div>
         ) : displayedImages.length === 0 ? (
           <div className="text-center">
-            <p>Tidak ada data.</p>
+            <p>Tidak ada gambar.</p>
           </div>
         ) : (
           <Row>
             {displayedImages.map((image) => (
               <Col key={image.id_gambar} xs={12} md={4} lg={3}>
-                <Card className='mb-3' >
+                <Card className='mb-3'>
                   <Card.Body>
-                    <Link to={`profile/${image.id_user}`} className="text-decoration-none border-0">
-                    <div className='row mb-3'>
-                      <div className='col-2'>
-                        <img src={`http://localhost:8000/files/` + image.foto_user} alt='foto_profil' className='img-profile rounded-circle' width={30} height={30}></img>                        
-                      </div>
-                      <div className='col-6 d-flex align-items-center text-dark'>{image.name}</div>
-                    </div>
-                    </Link>
+                    
                       <img
                         src={`http://localhost:8000/files/` + image.gambar}
                         alt="gambar"
                         className='mb-1'
                         style={{ width: '100%', height: 'auto', objectFit: 'cover', borderRadius: '3%' }}
                       />
+                    <p className='fw-bold fs-5'>{image.nama_gambar}</p>
                     <div className="d-flex justify-content-between align-items-center">
                       <div>
                       <i
@@ -174,7 +162,7 @@ const Gallery = ({ searchTerm, kategoriId }) => {
                           }}
                       ></i>
                       <span className="ms-3">
-                        <Link to={`comment-gambar/${image.id_gambar}`} disabled={!authToken} className='text-dark'>          
+                        <Link to={`/home/comment-gambar/${image.id_gambar}`} disabled={!authToken} className='text-dark'>          
                           <i className="bi bi-chat-dots bi-2x"></i>
                         </Link>
                       </span>
@@ -183,31 +171,9 @@ const Gallery = ({ searchTerm, kategoriId }) => {
                     </div>
                     <div className='d-block mt-2'>
                       <h6 className='fw-bold'>{image.jumlah_like} Suka</h6>
-                        <div style={{ fontSize: '18px' }}>
-                         {image.nama_gambar.length > 20 ? (
-                            <>
-                              {expandedText[image.id_gambar]
-                                ? image.nama_gambar
-                                : image.nama_gambar.slice(0, 20) + '...'}
-                              <span
-                                className='text-secondary'
-                                onClick={() => toggleText(image.id_gambar)}
-                                style={{ cursor: 'pointer', fontSize: '15px' }}
-                              >
-                                {expandedText[image.id_gambar]
-                                  ? ' Kurangi'
-                                  : ' Selengkapnya'}
-                              </span>
-                            </>
-                          ) : (
-                            image.nama_gambar
-                          )}
-                      </div>
-                      
-                      <Link to={`comment-gambar/${image.id_gambar}`} className='text-secondary'>          
-                        Lihat semua {image.jumlah_comment} Komentar
+                      <Link to={`/home/comment-gambar/${image.id_gambar}`} className='text-secondary'>          
+                        Lihat {image.jumlah_comment} Komentar
                         </Link>
-                        <p>{calculateTimeAgo(image.created_at)}</p>
                     </div>
                   </Card.Body>
                 </Card>
@@ -217,7 +183,7 @@ const Gallery = ({ searchTerm, kategoriId }) => {
         )}
       </Card.Body>
       
-      {images.length > 8 && (
+      {displayedImages.length > 8 && (
       <Row className="mt-3">
         <Col xs={12} className="text-end">
           <p className="show-more" onClick={handleClick}>
@@ -226,8 +192,8 @@ const Gallery = ({ searchTerm, kategoriId }) => {
         </Col>
       </Row>
       )}
-    </div>
+    </Container>
   );
 }
 
-export default Gallery;
+export default ProfileUser;

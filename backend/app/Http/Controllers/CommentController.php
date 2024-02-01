@@ -15,14 +15,13 @@ class CommentController extends Controller
         $rules = [
             'id_gambar' => 'required|string|max:258',
             'id_user' => 'required|string|max:258',
-            'isi_comment' => 'required|string|max:258',
+            'isi_comment' => 'required|string',
         ];
 
         $messages = [
             'id_gambar.required' => 'Gambar is required',
             'id_user.required' => 'User is required',
             'isi_comment.required' => 'Comment is required',
-
         ];
 
         $validator = Validator::make($request->all(), $rules, $messages);

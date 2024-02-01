@@ -15,6 +15,8 @@ const Comment = () => {
   const [comment, setComment] = useState([]);
   const [commentLoading, setCommentLoading] = useState(false);
   const { authToken, Id } = useAuth();
+  const [expandedText, setExpandedText] = useState({});
+  const [commentExpandedText, setCommentExpandedText] = useState({});
 
   const [formData, setFormData] = useState({
     isi_comment: '',
@@ -83,6 +85,20 @@ const Comment = () => {
     }
   };
 
+  const toggleText = (imageId) => {
+    setExpandedText((prevExpandedText) => ({
+      ...prevExpandedText,
+      [imageId]: !prevExpandedText[imageId],
+    }));
+  };
+
+  const toggleCommentText = (imageId) => {
+    setCommentExpandedText((prevExpandedText) => ({
+      ...prevExpandedText,
+      [imageId]: !prevExpandedText[imageId],
+    }));
+  };
+
   return (
     <Container className='mt-4'>
       <Link to="/home" className='mb-3'>
@@ -146,7 +162,26 @@ const Comment = () => {
                       alt="gambar"
                       style={{ width: '100%', height: 'auto', objectFit: 'cover', borderRadius: '3%' }}
                     />
-                  <p className='fw-bold mt-2'>{images.nama_gambar}</p>
+                  <p className='fw-bold mt-2'>
+                  {images.nama_gambar.length > 20 ? (
+                            <>
+                              {expandedText[images.id_gambar]
+                                ? images.nama_gambar
+                                : images.nama_gambar.slice(0, 20) + '...'}
+                              <span
+                                className='text-secondary'
+                                onClick={() => toggleText(images.id_gambar)}
+                                style={{ cursor: 'pointer', fontSize: '15px' }}
+                              >
+                                {expandedText[images.id_gambar]
+                                  ? ' Kurangi'
+                                  : ' Selengkapnya'}
+                              </span>
+                            </>
+                          ) : (
+                            images.nama_gambar
+                          )}
+                  </p>
                 </Card.Body>
               </Card>
             </Col>
@@ -156,7 +191,26 @@ const Comment = () => {
                   <div className="comment-container">
                   {comment.map((comments) => (
                   <div className="comment-box">
-                    <p className="comment-text">{comments.isi_comment}</p>
+                    <p className="comment-text">
+                    {comments.isi_comment.length > 150 ? (
+                            <>
+                              {commentExpandedText[comments.id_gambar]
+                                ? comments.isi_comment
+                                : comments.isi_comment.slice(0, 150) + '...'}
+                              <span
+                                className='text-secondary'
+                                onClick={() => toggleCommentText(comments.id_gambar)}
+                                style={{ cursor: 'pointer', fontSize: '15px' }}
+                              >
+                                {commentExpandedText[comments.id_gambar]
+                                  ? ' Kurangi'
+                                  : ' Selengkapnya'}
+                              </span>
+                            </>
+                          ) : (
+                            comments.isi_comment
+                          )}
+                    </p>
                     <span className="comment-username">{comments.name}</span>
                   </div>
                   ))}

@@ -32,15 +32,17 @@ const Topbar = () => {
     <div>
       <Navbar expand="lg" className="bg-dark shadow-sm">
         <Container>
-          <Nav.Link href="javascript:0;" className='text-white fw-bold fs-4'>Web Gallery</Nav.Link>
+          <Nav.Link href='/home' className='text-white fw-bold fs-4'>Web Gallery</Nav.Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto text-center d-flex justify-content-center align-items-center">
             {authToken ? (
                 <>
+                <Link to="profile-user" className='text-decoration-none'>
                   <span className='text-white mr-2'>{userName}</span>
                   <img className="img-profile rounded-circle mr-5" width={32} height={32}
                                     src={`http://localhost:8000/files/` + fotoUser}></img>
+                  </Link>
                   <Link to="/admin" className='text-white mr-3 text-decoration-none border-0'>
                   <Button size="sm" className="bg-white text-dark fw-bold text-decoration-none border-0">Admin</Button>
                   </Link>

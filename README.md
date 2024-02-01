@@ -1,7 +1,5 @@
-# WebGallery
-
 # Cara menjalankan WebGallery
-🔸 Kofigurasi Backend
+
 - Lakukan kloning repository pada perangkat Anda dengan mengeksekusi perintah:
 ### `git clone git@github.com:Ridwan-z/WebGallery.git`
 - Gunakan editor kode atau IDE favorit Anda untuk membuka folder yang telah di-klon.
@@ -19,8 +17,6 @@
 ### `php artisan key:generate`
 ### `php artisan migrate`
 ### `php artisan serve`
-
-🔸 Kofigurasi Frontend
 - Buka terminal baru dan navigasikan ke dalam direktori /frontend.
 - Eksekusi perintah: 
 ### `npm install`

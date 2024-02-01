@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id('id_comment');
             $table->string('id_gambar');
             $table->string('id_user');
-            $table->string('isi_comment');
+            $table->text('isi_comment');
             $table->timestamps();
         });
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Card, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Card, Col, Container, Row } from 'react-bootstrap';
 import './Kategori.css';
 import Gallery from '../Gallery/Gallery';
 import Search from '../Search/Search';
@@ -10,6 +10,7 @@ const Kategori = () => {
   const [showMore, setShowMore] = useState(false);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -35,6 +36,10 @@ const Kategori = () => {
     setSearchTerm(term);
   };
 
+  const handleCategoryClick = (categoryId) => {
+    setSelectedCategoryId(categoryId);
+  };
+
   const displayedCategories = showMore ? categories : categories.slice(0, 8);
   return (
     <div>
@@ -44,15 +49,22 @@ const Kategori = () => {
     <div className='mt-4'>
       <Container>
         <h1 className='fw-bold fs-4'>Kategori</h1>
-        <Card className="category-container">
+        <Card className="category-container mt-3">
           <Card.Body>
             {loading ? (
               <div className="text-center">
               <Row>
-               {[1, 2, 3, 4].map((placeholderId) => (
+               {[1, 2, 3, 4, 5, 6, 7, 8].map((placeholderId) => (
                  <Col key={placeholderId} xs={12} md={4} lg={3}>
                     <div className="category-circle mb-3" style={{ backgroundColor: '#E0E0E0' }}>
-                      
+                    <div className="category-lines-container">
+                        <div className="category-lines"></div>
+                        <div className="category-lines"></div>
+                        <div className="category-lines"></div>
+                    </div>
+                    </div>
+                    <div className='name-container'>
+                    <div className='name-loading'></div>
                     </div>
                    </Col>
                ))}
@@ -66,7 +78,7 @@ const Kategori = () => {
               <Row>
                 {displayedCategories.map((category) => (
                   <Col key={category.id} xs={12} md={4} lg={3}>
-                    <div className="category-circle bg-dark mb-3">
+                    <div className="category-circle bg-dark mb-3" onClick={() => handleCategoryClick(category.id_kategori)} style={{ cursor: 'pointer' }}>
                       <div className="category-lines-container">
                         <div className="category-lines"></div>
                         <div className="category-lines"></div>
@@ -93,7 +105,7 @@ const Kategori = () => {
           )} 
 
         <div className="my-4">
-          <Gallery searchTerm={searchTerm} />
+          <Gallery searchTerm={searchTerm} kategoriId={selectedCategoryId} />
         </div>
       </Container>
     </div>

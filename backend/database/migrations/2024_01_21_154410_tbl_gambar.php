@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('id_user');
             $table->string('gambar');
             $table->string('nama_gambar');
-            $table->string('deskripsi');
+            $table->text('deskripsi');
             $table->string('jumlah_like')->default(0);
             $table->string('jumlah_comment')->default(0);
             $table->timestamps();
